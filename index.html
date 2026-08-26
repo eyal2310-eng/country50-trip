@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F2F5F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1311" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="לוח ההחלטות של קאנטרי 50">
+<meta property="og:description" content="גרסה שלישית: בדיקת טיסות מלאה לשני המועדים">
+<title>לוח ההחלטות של קאנטרי 50</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@200;300;400;600;700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F2F5F1; --raise:#FCFDFB; --sink:#E5EAE4; --veil:rgba(27,33,29,.06);
+  --ink:#161C18; --ink-2:#4A544D; --ink-3:#7D877F; --line:#D3DBD2;
+  --lacquer:#A32A1E; --gold:#9F7418; --jade:#2A6353; --river:#3B6A83;
+  --glow:rgba(163,42,30,.10);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0F1311; --raise:#191F1C; --sink:#080B0A; --veil:rgba(255,255,255,.05);
+  --ink:#E9EDE7; --ink-2:#A8B1AA; --ink-3:#78827A; --line:#28302B;
+  --lacquer:#E2735F; --gold:#D8A747; --jade:#71B9A0; --river:#83B2C9;
+  --glow:rgba(226,115,95,.13);
+}}
+:root[data-theme="dark"]{
+  --ground:#0F1311; --raise:#191F1C; --sink:#080B0A; --veil:rgba(255,255,255,.05);
+  --ink:#E9EDE7; --ink-2:#A8B1AA; --ink-3:#78827A; --line:#28302B;
+  --lacquer:#E2735F; --gold:#D8A747; --jade:#71B9A0; --river:#83B2C9;
+  --glow:rgba(226,115,95,.13);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  direction:rtl; margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Assistant",-apple-system,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+}
+h1,h2,h3,h4{font-family:"Frank Ruhl Libre",Georgia,serif;margin:0;text-wrap:balance}
+p{margin:0 0 13px} p:last-child{margin-bottom:0}
+strong{font-weight:700;color:var(--ink)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
+
+/* ===== רקע ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg svg{position:absolute;bottom:-4%;right:-8%;width:135%;height:auto;opacity:.5}
+.bg .orb{
+  position:absolute;top:-24vh;left:-14vw;width:64vw;height:64vw;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, var(--glow), transparent 68%);
+}
+
+/* ===== במה ===== */
+.stage{position:fixed;inset:0;z-index:1}
+.slide{
+  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:64px 22px 96px;
+  opacity:0;visibility:hidden;transform:translateX(var(--dx,4%));
+  transition:opacity .34s ease, transform .40s cubic-bezier(.22,.68,.28,1), visibility 0s .40s;
+}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .38s ease, transform .44s cubic-bezier(.22,.68,.28,1), visibility 0s}
+.inner{width:100%;max-width:790px;margin:0 auto;position:relative}
+
+/* כניסה מדורגת */
+.slide.on .inner > *{animation:rise .5s cubic-bezier(.22,.68,.28,1) both}
+.slide.on .inner > *:nth-child(1){animation-delay:.05s}
+.slide.on .inner > *:nth-child(2){animation-delay:.11s}
+.slide.on .inner > *:nth-child(3){animation-delay:.17s}
+.slide.on .inner > *:nth-child(4){animation-delay:.23s}
+.slide.on .inner > *:nth-child(5){animation-delay:.29s}
+@keyframes rise{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .slide,.slide.on{transition:opacity .01s}
+  .slide.on .inner > *{animation:none}
+}
+
+/* מספר רפאים */
+.ghost{
+  position:absolute;top:-34px;left:-6px;font-family:"Frank Ruhl Libre",serif;
+  font-size:150px;font-weight:900;line-height:1;color:var(--ink);opacity:.045;
+  pointer-events:none;user-select:none;font-variant-numeric:tabular-nums;
+}
+@media (max-width:620px){.ghost{font-size:104px;top:-20px}}
+
+/* ===== טיפוגרפיה ===== */
+.tag{
+  font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:11.5px;letter-spacing:.16em;
+  font-weight:600;color:var(--accent,var(--lacquer));display:flex;align-items:center;gap:9px;margin-bottom:15px;
+}
+.tag::after{content:"";flex:1;height:1px;background:linear-gradient(to left,var(--line),transparent)}
+h2{font-size:clamp(28px,5.6vw,43px);font-weight:900;line-height:1.09;letter-spacing:-.015em}
+.lede{color:var(--ink-2);font-size:clamp(16px,3.3vw,19px);margin:15px 0 0;max-width:60ch;font-weight:300}
+.lede b{font-weight:600;color:var(--ink)}
+
+/* ===== שער ===== */
+.cover .who{
+  font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:12px;letter-spacing:.2em;
+  color:var(--lacquer);font-weight:600;margin-bottom:20px;
+}
+.cover h1{font-size:clamp(42px,10.5vw,80px);font-weight:900;line-height:1;letter-spacing:-.028em}
+.cover h1 em{font-style:normal;color:var(--lacquer)}
+.cover .sub{font-size:clamp(17px,3.9vw,21px);color:var(--ink-2);margin-top:22px;font-weight:200;max-width:50ch}
+.cover .ver{
+  margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+  font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:12.5px;color:var(--ink-3);
+  border:1px solid var(--line);border-radius:100px;padding:7px 16px;background:var(--raise);
+}
+.cover .ver i{width:6px;height:6px;border-radius:50%;background:var(--jade);font-style:normal}
+
+/* ===== כרטיסים ===== */
+.cards{display:grid;gap:11px;margin-top:24px}
+.cards.two{grid-template-columns:1fr 1fr}
+@media (max-width:620px){.cards.two{grid-template-columns:1fr}}
+.card{
+  background:var(--raise);border:1px solid var(--line);border-right:3px solid var(--c,var(--jade));
+  border-radius:3px;padding:16px 18px;
+}
+.card h4{font-size:17px;font-weight:700;color:var(--c,var(--jade));margin-bottom:5px}
+.card p{font-size:15.4px;color:var(--ink-2);margin:0}
+.card p + p{margin-top:8px}
+
+/* ===== אפשרויות ===== */
+.opts{display:grid;gap:10px;margin-top:22px}
+.opt{
+  display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:start;
+  background:var(--raise);border:1px solid var(--line);border-radius:3px;padding:15px 17px;
+  transition:border-color .2s, transform .2s;
+}
+.opt:hover{border-color:var(--ink-3);transform:translateX(-2px)}
+.opt-k{
+  font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:14px;font-weight:600;
+  width:30px;height:30px;display:grid;place-items:center;border-radius:50%;
+  background:var(--sink);color:var(--ink);border:1px solid var(--line);
+}
+.opt h4{font-size:16.5px;font-weight:700;margin-bottom:3px}
+.opt p{font-size:15px;color:var(--ink-2);margin:0}
+.opt .cost{display:block;margin-top:7px;font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:13.4px;color:var(--ink-3)}
+.opt .cost b{color:var(--ink-2);font-weight:600}
+.opt[data-lean]{border-color:var(--gold)}
+.opt[data-lean] .opt-k{background:var(--gold);color:var(--ground);border-color:var(--gold)}
+
+/* ===== מסלול ===== */
+.route{margin-top:22px;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.stop{
+  display:grid;grid-template-columns:56px 1fr auto;gap:13px;align-items:center;
+  padding:12px 15px;background:var(--raise);border-bottom:1px solid var(--line);
+}
+.stop:last-child{border-bottom:0}
+.stop-n{font-family:"IBM Plex Sans Hebrew",sans-serif;font-variant-numeric:tabular-nums;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}
+.stop-n b{display:block;font-size:15px;color:var(--c,var(--jade));font-weight:600}
+.stop-t{font-weight:600;font-size:16.4px}
+.stop-t small{display:block;font-weight:400;font-size:13.8px;color:var(--ink-3);line-height:1.45}
+.stop-x{font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:12.4px;color:var(--river);background:var(--sink);padding:3px 9px;border-radius:3px;white-space:nowrap}
+
+/* ===== טבלה ===== */
+.tw{overflow-x:auto;margin-top:20px;border:1px solid var(--line);border-radius:3px;background:var(--raise)}
+table{width:100%;border-collapse:collapse;font-size:14.8px;min-width:460px}
+th{text-align:right;font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:11.5px;letter-spacing:.06em;
+   color:var(--ink-3);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--sink)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num{font-family:"IBM Plex Sans Hebrew",sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+td small{display:block;color:var(--ink-3);font-size:12.8px;margin-top:2px;line-height:1.5}
+.warn{color:var(--lacquer);font-weight:600}
+
+/* ===== ניווט ===== */
+.rail{position:fixed;top:0;inset-inline:0;height:2px;z-index:30;pointer-events:none}
+.rail i{display:block;height:100%;width:0;background:var(--lacquer);transition:width .35s cubic-bezier(.22,.68,.28,1)}
+.brand{position:fixed;top:14px;left:18px;z-index:30;font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:11px;letter-spacing:.16em;color:var(--ink-3)}
+
+.hud{
+  position:fixed;bottom:0;inset-inline:0;z-index:30;display:flex;align-items:center;gap:10px;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--ground) 84%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);
+}
+.hud button.nav{
+  font-family:"Assistant",sans-serif;font-size:14px;font-weight:600;
+  background:var(--raise);color:var(--ink);border:1px solid var(--line);
+  border-radius:3px;padding:8px 16px;cursor:pointer;transition:border-color .15s,opacity .15s;
+}
+.hud button.nav:hover:not(:disabled){border-color:var(--ink-3)}
+.hud button.nav:disabled{opacity:.3;cursor:default}
+.dots{flex:1;display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap}
+.dots button{
+  width:7px;height:7px;padding:0;border-radius:50%;border:0;cursor:pointer;
+  background:var(--line);transition:background .2s,transform .2s;
+}
+.dots button:hover{background:var(--ink-3)}
+.dots button[aria-current="true"]{background:var(--lacquer);transform:scale(1.5)}
+.pos{font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:12.4px;color:var(--ink-3);font-variant-numeric:tabular-nums;min-width:50px;text-align:center}
+@media (max-width:560px){.dots{display:none}.hud{justify-content:space-between}}
+
+.swipe{
+  position:fixed;bottom:70px;inset-inline:0;z-index:29;text-align:center;pointer-events:none;
+  font-family:"IBM Plex Sans Hebrew",sans-serif;font-size:11.5px;letter-spacing:.08em;color:var(--ink-3);
+  opacity:0;transition:opacity .5s;
+}
+.swipe.show{opacity:.85}
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="orb"></div>
+  <svg viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1" style="color:var(--ink);opacity:.16">
+      <path d="M0 262 L96 176 L142 214 L214 108 L268 168 L318 132 L372 206 L438 150 L494 220 L556 128 L612 190 L668 96 L722 178 L790 138 L846 212 L910 156 L968 224 L1030 148 L1086 198 L1146 122 L1200 186"/>
+      <path d="M0 286 L82 226 L138 254 L206 172 L262 218 L322 186 L386 240 L446 198 L508 250 L570 182 L628 232 L690 158 L748 220 L812 190 L870 246 L932 202 L994 254 L1052 196 L1110 236 L1164 174 L1200 220"/>
+    </g>
+  </svg>
+</div>
+
+<div class="rail"><i id="rail"></i></div>
+<div class="brand">קאנטרי 50</div>
+
+<main class="stage" id="stage">
+
+<!-- 1 -->
+<section class="slide cover" data-t="פתיחה">
+  <div class="inner">
+    <div class="who">אייל · דני · ארנון</div>
+    <h1>לפני שסוגרים<br><em>טיסות</em></h1>
+    <p class="sub">כל מה שנאסף מהשיחות, כל מה שנבדק מול המקורות, וההתלבטויות שנשארו פתוחות. עם אפשרויות ממוספרות שאפשר לענות עליהן בהודעה אחת.</p>
+    <div class="ver"><i></i>גרסה שלישית · אחרי בדיקת הטיסות</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-t="מה תוקן" style="--accent:var(--jade)">
+  <div class="inner">
+    <div class="ghost">02</div>
+    <div class="tag">מה השתנה בגרסה הזו</div>
+    <h2>דני צדק בשתי הערות, ושתיהן תוקנו</h2>
+    <div class="cards">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>הטיסות במקום הרכבות: טעות שלי</h4>
+        <p>כתבתי בגרסה הקודמת שאפשר להחליף רכבות לילה בטיסות פנים של שעה. דני ענה שזה לא מעשי ושזה מכריח לבחור רק ערים עם שדה תעופה. הוא צודק, ובדיקה מאשרת: <strong>לסָאפָּה, להָא־זָ'אנג ולנין בין אין שדות תעופה כלל</strong>. שלושתן דרך האנוי, בכביש. כלומר בצפון וייטנאם הכפרי אין קיצור דרך.</p>
+      </div>
+      <div class="card" style="--c:var(--jade)">
+        <h4>הגלילה</h4>
+        <p>המצגת נבנתה מחדש. עכשיו זו מצגת ולא דף גולל: החלקה באצבע בנייד, חיצים או גלגלת במחשב, ומעבר חלק בין שקופיות.</p>
+      </div>
+      <div class="card" style="--c:var(--gold)">
+        <h4>ונוספה סָאפָּה</h4>
+        <p>אייל שאל למה היא לא הופיעה. השקופית הבאה עוסקת רק בה, ויש שם ממצא שמשנה את התמונה.</p>
+      </div>
+    </div>
+      <div class="card" style="--c:var(--river)">
+        <h4>ונבדקו הטיסות לשני המועדים</h4>
+        <p>ארבע שקופיות שלמות: מה קיים היום מתל אביב, מה כבר לא, כמה זה עולה, ואיזה מסלול הטיסות עצמן מכתיבות. <strong>שתי אפשרויות שהיו על השולחן התבררו כלא קיימות.</strong></p>
+      </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-t="סאפה" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">03</div>
+    <div class="tag">הבדיקה שהתבקשה</div>
+    <h2>סָאפָּה: המקום נכון, העונה לא</h2>
+    <p class="lede">טרסות האורז של סָאפָּה הן אחת התמונות היפות בדרום מזרח אסיה. אבל התמונות האלה מצולמות <b>בספטמבר</b>, וזה כל ההבדל.</p>
+    <div class="cards two">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>מה קורה שם בסוף נובמבר</h4>
+        <p>הקציר מסתיים בספטמבר או אוקטובר. מנובמבר הטרסות קצורות: קש חום ושדות ריקים, לא הירוק והזהב שבסרטונים. הטמפרטורה יורדת לעשר עד חמש עשרה מעלות ביום, ובדצמבר הלילות מתקרבים לאפס. ערפל כבד רוב הבוקר, וראות מוגבלת שמקצרת את מסלולי ההליכה.</p>
+      </div>
+      <div class="card" style="--c:var(--river)">
+        <h4>ומה עוד</h4>
+        <p>אין שדה תעופה. מהאנוי זה חמש עד שש שעות בכביש, או רכבת לילה ללָאו קָאי ועוד שעה נסיעה. בדיוק הדבר שדני אמר שהוא לא רואה אותנו עושים. סָאפָּה עצמה גם התמסחרה מאוד בשנים האחרונות.</p>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card" style="--c:var(--jade)">
+        <h4>המסקנה</h4>
+        <p>אם רוצים את סָאפָּה, זה טיול של ספטמבר. בסוף נובמבר היא מוסיפה יומיים של כביש קר וערפילי בשביל שדות קצורים. <strong>היא לא נכנסת למסלול, וטוב שכך.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-t="מה כל אחד רוצה" style="--accent:var(--jade)">
+  <div class="inner">
+    <div class="ghost">04</div>
+    <div class="tag">נקודת הפתיחה</div>
+    <h2>שלושתנו רוצים שלושה טיולים שונים</h2>
+    <p class="lede">זו לא מריבה, זו העובדה שצריך לפתור. כך זה נקרא מהצד, מתוך מה שכל אחד כתב:</p>
+    <div class="cards">
+      <div class="card" style="--c:var(--gold)">
+        <h4>דני</h4>
+        <p>טיול אופנועים אמיתי. לאוס דווקא בגלל שהיא לא ממוסחרת, הלופ של תָאקֶק כליבה, נופים וטבע ולא בריכה במלון. עשה כבר וייטנאם ולא מתלהב לחזור. הזהיר מראש: אל תבואו ואז תגידו "רגע, בואו לא נעבור".</p>
+      </div>
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>אייל</h4>
+        <p>מסאז' כמעט כל יום, אוכל טוב, מלון ברמה גבוהה, פינוקים. התלהב מסייגון וממה שראה בטיקטוק. אמר את זה במפורש: "איפה מחתימים דרכון פחות חשוב".</p>
+      </div>
+      <div class="card" style="--c:var(--river)">
+        <h4>ארנון</h4>
+        <p>זורם על היעד, רוצה פחות מעברים ולסגור טיסות מוקדם. עדיין בלי רישיון אופנוע, וזו לא הערת שוליים: היא חוסמת חלק מהמסלולים לגמרי.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-t="הסתירה" style="--accent:var(--lacquer)">
+  <div class="inner">
+    <div class="ghost">05</div>
+    <div class="tag">האמת הלא נוחה</div>
+    <h2>לאוס הכפרית ומסאז' כל יום לא גרים באותו מסלול</h2>
+    <p class="lede">זו הסתירה המרכזית, ואין תכנון חכם שמרכך אותה.</p>
+    <div class="cards">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>הצד של דני נכון</h4>
+        <p>בלופ של תָאקֶק יש שני לילות בכפרים. תָאקֶק עצמה, לפי מדריכי 2026, היא עיירה עם בתי הארחה ואכסניות בלבד, ואין בה מלון ברמה שדיברנו עליה. המקום הטוב ביותר בלופ, ספרינג ריבר בקוֹנג לוֹר, הוא בונגלוס על הנהר עם ביקורות מצוינות, אבל הוא לא מלון ואין בו ספא.</p>
+      </div>
+      <div class="card" style="--c:var(--gold)">
+        <h4>וגם הצד השני נכון</h4>
+        <p>הסרטונים שאייל שלח מראים את חמשת האחוזים המצולמים ביותר. דני צודק שזה לא בסיס לתכנון. מנגד, לואנג פראבנג ו־וַאנג ויאנג באמת יפות ובאמת יש בהן מלונות טובים וספא. זה לא רק באולינג.</p>
+      </div>
+      <div class="card" style="--c:var(--jade)">
+        <h4>המסקנה המעשית</h4>
+        <p>אפשר להחזיק את שתי הדרישות אם הרכיבה יוצאת מבסיסים עם מלון טוב במקום ללון בכפרים. זה מוותר על הלופ הרצוף ומשאיר את הרכיבה. זו התלבטות 2.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-t="מסלול א" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">06</div>
+    <div class="tag">גרסה א · בסיסים</div>
+    <h2>סייגון ולאוס, ארבעה עשר יום</h2>
+    <p class="lede">ארבע עצירות לינה, מלון טוב בכל לילה, שלושה ימי רכיבה מלאים. בלי לופ.</p>
+    <div class="route">
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">ימים<b>1–3</b></div><div class="stop-t">סייגון<small>התאקלמות, מנהרות קוּ צ'י, אוכל, בר גג, ספא</small></div><div class="stop-x">3 לילות</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">ימים<b>4–6</b></div><div class="stop-t">לואנג פראבנג<small>טיסה דרך ויאנטיאן · מפלי קוּאָנג סי · יום רכיבה ראשון</small></div><div class="stop-x">3 לילות</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">ימים<b>7–10</b></div><div class="stop-t">ואנג ויאנג<small>רכבת 55 דקות · לגונות, מערות, כדור פורח · שני ימי רכיבה</small></div><div class="stop-x">4 לילות</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">יום<b>11</b></div><div class="stop-t">ויאנטיאן<small>רכבת שעה · לילה לפני הטיסה</small></div><div class="stop-x">לילה</div></div>
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">ימים<b>12–14</b></div><div class="stop-t">סייגון<small>טיסה ישירה שעתיים · דלתת המקונג, שווקים, קניות, ספא</small></div><div class="stop-x">2 לילות</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:14.6px;color:var(--ink-3);font-family:'IBM Plex Sans Hebrew',sans-serif">13 לילות · 4 עצירות · 2 טיסות פנים · 2 רכבות · אפס נסיעות יבשה מעל שעתיים</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-t="מסלול ב" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">07</div>
+    <div class="tag">גרסה ב · הלופ</div>
+    <h2>אותם ימים, עם הלופ של דני</h2>
+    <p class="lede">התוכנית של דני כמעט כלשונה, אחרי בדיקת הלוגיסטיקה שלה.</p>
+    <div class="route">
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">ימים<b>1–3</b></div><div class="stop-t">סייגון</div><div class="stop-x">3 לילות</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">ימים<b>4–6</b></div><div class="stop-t">ואנג ויאנג<small>טיסה לוויאנטיאן ורכבת שעה</small></div><div class="stop-x">3 לילות</div></div>
+      <div class="stop" style="--c:var(--river)"><div class="stop-n">יום<b>7</b></div><div class="stop-t">מעבר לתָאקֶק<small>רכבת לוויאנטיאן ואז חמש שעות רכב פרטי, 336 ק"מ</small></div><div class="stop-x">לילה</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">ימים<b>8–11</b></div><div class="stop-t">לופ תָאקֶק<small>450 ק"מ · מערת קונג לור · שני לילות כפריים</small></div><div class="stop-x">4 לילות</div></div>
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">ימים<b>12–14</b></div><div class="stop-t">חזרה לסייגון<small>דרך פָּאקְסֶה או ויאנטיאן, ראו למטה</small></div><div class="stop-x">2 לילות</div></div>
+    </div>
+    <div class="cards" style="margin-top:14px">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>הבעיה שנמצאה בבדיקה</h4>
+        <p>התוכנית המקורית נשענת על טיסה ישירה פָּאקְסֶה אל סייגון. בפועל לאו איירליינס מפעילה אותה <strong>שלוש פעמים בשבוע בלבד</strong>, ומקור אחד אף מציג את הכיוון הזה כלא ישיר. מפָּאקְסֶה צריך גם להוסיף כחמש שעות נסיעה מתָאקֶק. החלופה היא לחזור צפונה לוויאנטיאן, שוב חמש שעות רכב, ושם יש שמונה טיסות ישירות בשבוע. כך או כך זה יום שלם ברכב, וסיכון אמיתי לתאריך.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F1 -->
+<section class="slide" data-t="שוק הטיסות השתנה" style="--accent:var(--lacquer)">
+  <div class="inner">
+    <div class="ghost">08</div>
+    <div class="tag">בדיקת טיסות · שני המועדים</div>
+    <h2>שתי הנחות שעבדנו לפיהן כבר לא נכונות</h2>
+    <p class="lede">ארנון תמחר את הטיסות לפני שבוע. בינתיים בדקתי לעומק, ושתי אפשרויות שהיו על השולחן פשוט אינן קיימות.</p>
+    <div class="cards">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>אמירייטס יצאה מתל אביב</h4>
+        <p>הקישורים ששלח ארנון, 1,180 דולר לסייגון ו־900 לבנגקוק, הם לאמירייטס. אמירייטס הייתה אמורה לחדש את הקו לתל אביב ב־2026, אבל <strong>הסירה את כל הטיסות מלוח הזמנים</strong>, וההסרה לא תחומה בתאריך. הבת שלה פלייגו'באי כן ממשיכה לטוס לדובאי, עד עשר פעמים ביום, אבל היא נוחתת בבנגקוק בשדה דוֹן מוּאָנג ולא בסוּוַרְנַבּוּמי, וזה שדה אחר עם חברות אחרות. <strong>המחירים שראינו אינם ברי הזמנה.</strong></p>
+      </div>
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>ואל על ביטלה את הקו הישיר להאנוי</h4>
+        <p>אל על הכריזה ביוני על שלוש טיסות שבועיות ישירות להאנוי מ־24 באוקטובר, ואף מכרה כרטיסים מ־899 דולר. ב־13 באוגוסט פורסם שגורמי הביטחון לא נתנו את האישורים להפעיל את הקו במטוסים ובצוותים ישראליים, <strong>והקו בוטל לגמרי</strong>. מי שהזמין קיבל חלופה דרך בנגקוק או החזר.</p>
+      </div>
+      <div class="card" style="--c:var(--jade)">
+        <h4>ומה שכן נפתח</h4>
+        <p>ארקיע כבר מפעילה קו ישיר לְהָאנוֹי, ומאוקטובר 2026 פותחת גם <strong>קו ישיר לסייגון</strong>. זו האפשרות היחידה להגיע לוייטנאם בלי אף עצירה, והיא גם פותרת לנו בעיה אחרת. השקופיות הבאות.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F2 -->
+<section class="slide" data-t="שלוש הדרכים" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">09</div>
+    <div class="tag">בדיקת טיסות · ההשוואה</div>
+    <h2>שלוש דרכים להגיע, ואף אחת לא מעל עצירה אחת</h2>
+    <p class="lede">אלה שלוש האפשרויות שנשארו על השולחן אחרי הסינון. המחירים הם הלוך ושוב לאדם, נכון לאוגוסט 2026, ודורשים אימות לתאריך בפועל.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>הדרך</th><th>עצירות</th><th>מחיר</th><th>מה הבעיה</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>ארקיע ישיר לוייטנאם</strong><small>סייגון בחמישי · האנוי בשלישי</small></td>
+            <td class="num">אפס</td>
+            <td class="num">1,498 $<small>1,718 עם מזוודה</small></td>
+            <td>היקרה ביותר, ורק שתי טיסות בשבוע. אבל היחידה בלי עצירה, והיא מאפשרת לנחות בעיר אחת ולחזור מהשנייה.</td>
+          </tr>
+          <tr>
+            <td><strong>אל על ישיר לבנגקוק</strong><small>שישה ימים בשבוע, כ־11 שעות</small></td>
+            <td class="num">אפס לבנגקוק<small style="color:var(--ink-3);font-weight:400">ואז טיסה אזורית</small></td>
+            <td class="num">כ־950 $<small>לפי מבצעי 2026</small></td>
+            <td>מוסיפה טיסה פנימית בכל כיוון, אבל מבנגקוק יש טיסות לכל מקום שאנחנו צריכים, כמעט בכל שעה.</td>
+          </tr>
+          <tr>
+            <td><strong>אתיהאד דרך אבו דאבי</strong><small>לבנגקוק בלבד</small></td>
+            <td class="num">אחת</td>
+            <td class="num">כ־960 $</td>
+            <td>לסייגון היא כבר לא ישירה מאבו דאבי, כלומר שתי עצירות. לבנגקוק היא תקינה.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cards" style="margin-top:13px">
+      <div class="card" style="--c:var(--river)">
+        <h4>ולאוס ישירות?</h4>
+        <p>אין. ויאנטיאן מקושרת לשלושים וחמישה יעדים בשמונה מדינות בלבד, וישראל אינה ביניהם. <strong>כל דרך ללאוס עוברת דרך בנגקוק, האנוי או סייגון</strong>, ולכן היעד שאליו טסים הוא ממילא וייטנאם או תאילנד.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F3 -->
+<section class="slide" data-t="מה שהטיסות פותרות" style="--accent:var(--jade)">
+  <div class="inner">
+    <div class="ghost">10</div>
+    <div class="tag">בדיקת טיסות · הממצא</div>
+    <h2>ארקיע פותרת לנו בדיוק את הבעיה שהתווכחנו עליה</h2>
+    <p class="lede">הטיסה לסייגון יוצאת בחמישי. הטיסה מהָאנוֹי חוזרת בשלישי. כלומר אפשר <b>לנחות בדרום ולחזור מהצפון בלי לחזור אחורה</b>, ובלי אף עצירה בדרך.</p>
+    <div class="route">
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">חמישי</div><div class="stop-t">תל אביב אל סייגון<small>ארקיע, ישיר</small></div><div class="stop-x">יום 1</div></div>
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">ימים</div><div class="stop-t">סייגון<small>3 לילות</small></div><div class="stop-x">2–4</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">מעבר</div><div class="stop-t">סייגון אל ויאנטיאן<small>ישירה, כשעתיים, שמונה בשבוע</small></div><div class="stop-x">יום 5</div></div>
+      <div class="stop" style="--c:var(--gold)"><div class="stop-n">ימים</div><div class="stop-t">לאוס<small>ואנג ויאנג ולואנג פראבנג, ברכבת ביניהן</small></div><div class="stop-x">5–12</div></div>
+      <div class="stop" style="--c:var(--river)"><div class="stop-n">מעבר</div><div class="stop-t">לואנג פראבנג או ויאנטיאן אל האנוי<small>שעה עד שעה ורבע · 21 טיסות בשבוע</small></div><div class="stop-x">יום 13</div></div>
+      <div class="stop" style="--c:var(--lacquer)"><div class="stop-n">שלישי</div><div class="stop-t">האנוי אל תל אביב<small>ארקיע, ישיר, יציאה 19:20</small></div><div class="stop-x">יום 13</div></div>
+    </div>
+    <div class="cards" style="margin-top:13px">
+      <div class="card" style="--c:var(--jade)">
+        <h4>למה זה טוב</h4>
+        <p>אנחנו לא חוזרים על אף קטע. האנוי היא רק נקודת יציאה של חצי יום, לא עצירת לינה, ולכן ההסתייגות של דני מהצפון בעינה. <strong>ומספר הימים יוצא שנים עשר לילות</strong>, שזה בתוך הטווח שדיברנו עליו.</p>
+      </div>
+      <div class="card" style="--c:var(--gold)">
+        <h4>מה שצריך לאמת</h4>
+        <p>ארקיע מוכרת את הקו לסייגון מאוקטובר, אבל צריך לוודא שהוא נמכר בפועל לתאריכים שלנו, ובעיקר שאפשר לקנות כרטיס אחד שנוחת בסייגון וממריא מהאנוי. <strong>שתי חברות אחרות כבר הבטיחו קווים לוייטנאם וביטלו אותם.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F4 -->
+<section class="slide" data-t="טיסות פנים" style="--accent:var(--river)">
+  <div class="inner">
+    <div class="ghost">11</div>
+    <div class="tag">בדיקת טיסות · באזור</div>
+    <h2>המעברים באזור, ומי שאפשר לסמוך עליו</h2>
+    <p class="lede">תדירות חשובה יותר ממחיר. קו שטס פעמיים ביום סולח על איחור, קו שטס שלוש פעמים בשבוע לא.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>הקו</th><th>תדירות</th><th>משך</th><th>מחיר</th></tr></thead>
+        <tbody>
+          <tr><td>בנגקוק אל סייגון</td><td class="num">256 בשבוע</td><td class="num">1:30</td><td class="num">55–120 $</td></tr>
+          <tr><td>בנגקוק אל ויאנטיאן</td><td class="num">28 בשבוע</td><td class="num">1:20</td><td class="num">כ־150 $</td></tr>
+          <tr><td>בנגקוק אל לואנג פראבנג</td><td class="num">16 בשבוע</td><td class="num">2:05</td><td class="num">130–370 $</td></tr>
+          <tr><td>האנוי אל ויאנטיאן</td><td class="num">21 בשבוע</td><td class="num">1:00</td><td class="num">כ־105 $</td></tr>
+          <tr><td>האנוי אל לואנג פראבנג</td><td class="num">12 בשבוע</td><td class="num">1:10</td><td class="num">110–260 $</td></tr>
+          <tr><td>ויאנטיאן אל סייגון</td><td class="num">8 בשבוע</td><td class="num">2:00</td><td class="num">כ־150 $</td></tr>
+          <tr><td class="warn">פָּאקְסֶה אל סייגון</td><td class="num warn">3 בשבוע</td><td class="num">1:35</td><td class="num">כ־150 $</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:14.6px;color:var(--ink-3);font-family:'IBM Plex Sans Hebrew',sans-serif">
+      כל השורות האלה הן טיסות ישירות. בנגקוק היא הצומת החזקה ביותר, ולכן היא הרשת הביטחון של כל מסלול.
+    </p>
+  </div>
+</section>
+
+<!-- F5 -->
+<section class="slide" data-t="הבדיקה מפאקסה" style="--accent:var(--lacquer)">
+  <div class="inner">
+    <div class="ghost">12</div>
+    <div class="tag">הבדיקה שהתבקשה · לעומק</div>
+    <h2>הטיסה מפָּאקְסֶה: גרוע יותר ממה שחשבתי</h2>
+    <p class="lede">בגרסה הקודמת סימנתי אותה כסיכון. בדקתי לעומק, וכל פרט שנוסף מחמיר.</p>
+    <div class="cards two">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>חברה אחת, טיסה אחת</h4>
+        <p>לאו איירליינס בלבד, טיסה QV515. אין חברה שנייה שתחלץ אותנו אם משהו משתבש, ואין טיסה אחרת באותו יום.</p>
+      </div>
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>שלוש פעמים בשבוע</h4>
+        <p>ואם מפספסים, ההמתנה לבאה היא יומיים. בסוף טיול, כשטיסה בינלאומית מחכה, זה לא סיכון שלוקחים.</p>
+      </div>
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>הקו עונתי</h4>
+        <p>לפי לוחות הטיסה, הקו <strong>נפתח מחדש רק באוקטובר</strong> בכל שנה. כלומר הוא לא רץ ברצף, ולוח החורף מתפרסם מאוחר. אי אפשר להזמין עליו בביטחון חודשים מראש.</p>
+      </div>
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>ויוצאת ב־09:45</h4>
+        <p>המראה בבוקר מוקדם מפָּאקְסֶה מחייבת ללון בפָּאקְסֶה בלילה שלפני, ולנסוע אליה מתָאקֶק כחמש שעות ביום שלפני כן. <strong>הטיסה הזאת עולה לנו יומיים, לא שעה וחצי.</strong></p>
+      </div>
+    </div>
+    <div class="cards" style="margin-top:11px">
+      <div class="card" style="--c:var(--jade)">
+        <h4>המסקנה</h4>
+        <p>אם הולכים על הלופ, לא יוצאים דרך פָּאקְסֶה אלא חוזרים לוויאנטיאן, שיש ממנה שמונה טיסות בשבוע לסייגון ועשרים ואחת להאנוי. זה אותו יום נסיעה, אבל בלי ההימור.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-t="התלבטות 1" style="--accent:var(--lacquer)">
+  <div class="inner">
+    <div class="ghost">13</div>
+    <div class="tag">התלבטות 1 · הליבה</div>
+    <h2>מה הטיול הזה, בעצם</h2>
+    <p class="lede">כל השאר נגזר מזה. בחרו מספר.</p>
+    <div class="opts">
+      <div class="opt"><div class="opt-k">1</div><div>
+        <h4>טיול רכיבה</h4><p>הלופ הוא הליבה, הכול מסתדר סביבו. בריכה וספא בקצוות בלבד.</p>
+        <span class="cost">מחיר: שני לילות בלי מלון ובלי מסאז', ויום שלם ברכב בכל כיוון.</span>
+      </div></div>
+      <div class="opt" data-lean><div class="opt-k">2</div><div>
+        <h4>טיול רכיבה מתוך בסיסים</h4><p>שלושה ימי רכיבה מלאים, כל ערב חזרה למלון טוב, מסאז' ומיטה. אותם נופים, בלי הלופ הרצוף.</p>
+        <span class="cost">מחיר: זו לא חוויית לופ. דני מוותר על משהו אמיתי.</span>
+      </div></div>
+      <div class="opt"><div class="opt-k">3</div><div>
+        <h4>טיול ערים ופינוקים</h4><p>סייגון, לואנג פראבנג, ואנג ויאנג. רכיבה קצרה אם מתחשק, לא כעיקרון מארגן.</p>
+        <span class="cost">מחיר: דני אמר שהוא ילך לבד או עם ליזי. אני מאמין לו.</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-t="התלבטות 2" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">14</div>
+    <div class="tag">התלבטות 2 · הלופ</div>
+    <h2>כמה מהלופ של תָאקֶק</h2>
+    <p class="lede">אם בחרתם 1 או 2 למעלה, זו ההמשכה.</p>
+    <div class="opts">
+      <div class="opt"><div class="opt-k">1</div><div>
+        <h4>לופ מלא, ארבעה ימים</h4><p>450 ק"מ, קונג לור, שני לילות כפריים. בדיוק כפי שדני תכנן.</p>
+        <span class="cost">אוכל שישה מתוך ארבעה עשר הימים כולל המעברים. <b>לינה:</b> אכסניות ובונגלוס.</span>
+      </div></div>
+      <div class="opt"><div class="opt-k">2</div><div>
+        <h4>לופ מקוצר, שלושה ימים</h4><p>תָאקֶק אל קונג לור וחזרה. המערה נשארת, לילה כפרי אחד במקום שניים.</p>
+        <span class="cost">חוסך יום, אבל עדיין יום רכב בכל כיוון. פשרה שלא מרצה אף צד.</span>
+      </div></div>
+      <div class="opt" data-lean><div class="opt-k">3</div><div>
+        <h4>בלי לופ, רכיבה יומית</h4><p>יום רכיבה מלואנג פראבנג למפלי קוּאָנג סי, ושניים מוואנג ויאנג בין הלגונות והמערות.</p>
+        <span class="cost">חוסך שני ימי רכב מלאים ומשחרר ארבעה לילות. <b>אין קונג לור.</b></span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-t="התלבטות 3" style="--accent:var(--river)">
+  <div class="inner">
+    <div class="ghost">15</div>
+    <div class="tag">התלבטות 3 · מתי</div>
+    <h2>סוף נובמבר או סוף ינואר</h2>
+    <p class="lede">שני התאריכים שכבר עלו. הנה מה שבאמת מבדיל ביניהם.</p>
+    <div class="opts">
+      <div class="opt"><div class="opt-k">1</div><div>
+        <h4>סוף נובמבר 2026</h4><p>ההצעה של אייל, סמוך ליום ההולדת. ארנון כבר תמחר 27/11 עד 11/12 באמירייטס, כ־1,180 דולר.</p>
+        <span class="cost">תחילת העונה היבשה, נעים. עונת שיא בלאוס, והמלונות נגמרים מוקדם.</span>
+      </div></div>
+      <div class="opt"><div class="opt-k">2</div><div>
+        <h4>סוף ינואר 2027</h4><p>ההצעה של דני. ארנון תמחר 22/1 עד 5/2 לבנגקוק, כ־900 דולר.</p>
+        <span class="cost">שיא העונה היבשה, הכי טוב לרכיבה. בקרים קרים בהרים. חמישה חודשים נוספים לתכנון ולרישיון של ארנון.</span>
+      </div></div>
+      <div class="opt"><div class="opt-k">3</div><div>
+        <h4>סוף פברואר ומרץ</h4><p>מובא רק כדי להיפסל: מסוף פברואר מתחילות שריפות החקלאות בצפון לאוס, והאובך חוסם את הנוף.</p>
+        <span class="cost">לא מומלץ.</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-t="התלבטות 4" style="--accent:var(--jade)">
+  <div class="inner">
+    <div class="ghost">16</div>
+    <div class="tag">התלבטות 4 · כסף</div>
+    <h2>אנחנו מתכננים שני טיולים בשני תקציבים</h2>
+    <p class="lede">דני כתב 1,500 עד 2,000 דולר לאדם ללא טיסה. ברמת הלינה שאייל ביקש זה יוצא כמעט כפול. אף אחד לא טעה בחשבון, פשוט מדובר בשני טיולים.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>סעיף</th><th>גרסת הלופ</th><th>גרסת המלונות</th></tr></thead>
+        <tbody>
+          <tr><td>לינה, 13 לילות</td><td class="num">450–700 $</td><td class="num">1,600–2,200 $<small>חדר ליחיד</small></td></tr>
+          <tr><td>טיסות פנים והעברות</td><td class="num">450–650 $<small>כולל רכב פרטי</small></td><td class="num">350–450 $</td></tr>
+          <tr><td>קטנועים ודלק</td><td class="num">150–200 $</td><td class="num">80–120 $</td></tr>
+          <tr><td>אוכל, מסאז', אטרקציות</td><td class="num">500–800 $</td><td class="num">900–1,200 $</td></tr>
+          <tr><td>ויזות וביטוח</td><td class="num">150–250 $</td><td class="num">150–250 $</td></tr>
+          <tr><td><strong>ללא טיסה בינלאומית</strong></td><td class="num"><strong>1,700–2,600 $</strong></td><td class="num"><strong>3,100–4,200 $</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="opts">
+      <div class="opt"><div class="opt-k">1</div><div><h4>מיישרים כלפי מטה</h4><p>לינה טובה בערים, פשוטה בדרך. כל אחד מוותר על חצי.</p></div></div>
+      <div class="opt"><div class="opt-k">2</div><div><h4>מיישרים כלפי מעלה</h4><p>מלון טוב בכל לילה, וזה מייתר את הלופ ממילא.</p></div></div>
+      <div class="opt"><div class="opt-k">3</div><div><h4>כל אחד לפי כיסו</h4><p>ישנים באותו מקום ברמות חדר שונות היכן שאפשר. בכפרי הלופ אין מה לשדרג.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-t="התלבטות 5" style="--accent:var(--river)">
+  <div class="inner">
+    <div class="ghost">17</div>
+    <div class="tag">התלבטות 5 · ארנון</div>
+    <h2>בלי רישיון בינלאומי, אין רכיבה</h2>
+    <p class="lede">גם קטנוע 125 סמ"ק דורש רישיון תואם. בלעדיו הביטוח לא מכסה, וזה לא ניואנס: רוב פוליסות הנסיעות מחריגות דו־גלגלי אלא אם ביקשת את הסעיף במפורש ובכתב.</p>
+    <div class="opts">
+      <div class="opt" data-lean><div class="opt-k">1</div><div>
+        <h4>ארנון מוציא רישיון עכשיו</h4><p>המשימה הראשונה ברשימה, כי היא הארוכה ביותר. פותחת את כל האפשרויות.</p>
+      </div></div>
+      <div class="opt"><div class="opt-k">2</div><div>
+        <h4>ארנון על רכב נלווה</h4><p>נהג פרטי עוקב בימי הרכיבה, וגם סוחב את התיקים. כ־60 עד 100 דולר ליום.</p>
+        <span class="cost">עובד בגרסת הבסיסים. בלופ זה נהג צמוד לארבעה ימים.</span>
+      </div></div>
+      <div class="opt"><div class="opt-k">3</div><div>
+        <h4>רוכבים בזוגות</h4><p>ארנון מאחור. פחות כיף לו, ובכביש הררי עם תיקים גם פחות בטוח.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-t="עובדות" style="--accent:var(--jade)">
+  <div class="inner">
+    <div class="ghost">18</div>
+    <div class="tag">נבדק מול מקורות · אוגוסט 2026</div>
+    <h2>מה שנבדק, ולא מה שנדמה</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>נושא</th><th>הממצא</th></tr></thead>
+        <tbody>
+          <tr><td>ויאנטיאן אל סייגון</td><td>ישירה, כשעתיים, כשמונה טיסות בשבוע. וייטנאם איירליינס, לאו איירליינס ו־ויֶטג'ֶט.</td></tr>
+          <tr><td>פָּאקְסֶה אל סייגון</td><td class="warn">שלוש בשבוע, וקו עונתי<small style="color:var(--ink-3);font-weight:400">לאו איירליינס בלבד, QV515, יציאה 09:45. הקו נפתח מחדש רק באוקטובר בכל שנה.</small></td></tr>
+          <tr><td>אמירייטס מתל אביב</td><td class="warn">הוסרה מלוח הטיסות<small style="color:var(--ink-3);font-weight:400">ללא תאריך חזרה. המחירים ששלח ארנון אינם ברי הזמנה.</small></td></tr>
+          <tr><td>אל על להאנוי</td><td class="warn">בוטל ב‑13 באוגוסט 2026<small style="color:var(--ink-3);font-weight:400">גורמי הביטחון לא נתנו אישור להפעיל במטוסים וצוותים ישראליים.</small></td></tr>
+          <tr><td>ארקיע לוייטנאם</td><td>קו ישיר לסייגון מאוקטובר 2026, יציאה בחמישי וחזרה במוצאי שבת. לְהָאנוֹי, בשלישי.</td></tr>
+          <tr><td>סָאפָּה, הָא־זָ'אנג, נין בין</td><td class="warn">אין שדה תעופה<small style="color:var(--ink-3);font-weight:400">הכול דרך האנוי בכביש. סָאפָּה כחמש עד שש שעות. דני צדק.</small></td></tr>
+          <tr><td>רכבת לואנג פראבנג אל ואנג ויאנג</td><td>כ־55 דקות, כ־16 דולר. הקופות נפתחות שלושה ימים לפני, מקוון מוקדם יותר.</td></tr>
+          <tr><td>ויאנטיאן אל תָאקֶק</td><td>336 ק"מ. חמש שעות ברכב פרטי, שש עד תשע באוטובוס. הרכבת לא מגיעה לשם.</td></tr>
+          <tr><td>הלופ עצמו</td><td>450 ק"מ, כולו סלול נכון ל־2026. עונת הגשמים מאי עד אוקטובר, ואנחנו מחוצה לה בשני המועדים.</td></tr>
+          <tr><td>ויזת וייטנאם</td><td>מקוונת, עד 90 יום. 25 דולר לכניסה אחת, 50 לרב־פעמית, כשלושה ימי עבודה.</td></tr>
+          <tr><td>ויזת לאוס</td><td>בכניסה, 30 יום, כ־40 דולר במזומן ותמונת דרכון.</td></tr>
+          <tr><td>חיסונים</td><td>אין חובה. שווה לבדוק צהבת A וטיפוס. אין מלריה משמעותית במסלול, יש דנגי, כלומר דוחה יתושים.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cards" style="margin-top:13px">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>מלכודת שקל לפספס</h4>
+        <p>אם נכנסים לוייטנאם, יוצאים ללאוס וחוזרים לוייטנאם, <strong>ויזה חד־פעמית לא תיתן להיכנס בפעם השנייה</strong>. צריך רב־פעמית. הבדל של 25 דולר, ושל טיסה שלא עולים עליה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-t="לא נעים" style="--accent:var(--lacquer)">
+  <div class="inner">
+    <div class="ghost">19</div>
+    <div class="tag">שקיפות מלאה</div>
+    <h2>ארבעה דברים שעדיף שייאמרו עכשיו</h2>
+    <p class="lede">אייל ביקש במפורש לכתוב גם את מה שסותר את מה שהוא רוצה. אז:</p>
+    <div class="cards two">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>הטיקטוק מטעה</h4>
+        <p>שלוש שעות סרטונים מראות את אותם חמישה מקומות, כי האלגוריתם מראה את מה שמצטלם. הוא לא מראה את שעות הכביש שביניהם, וגם לא את העונה שבה צולם. זה עובד לשני הכיוונים: גם "רק באולינג בערב" הוא רושם של אלגוריתם, לא של מדינה.</p>
+      </div>
+      <div class="card" style="--c:var(--gold)">
+        <h4>שלושה ימים בסייגון זה יום אחד יותר מדי</h4>
+        <p>עיר של תשעה מיליון, חמה ורועשת. יומיים מלאים סוגרים את העיקר. היום השלישי מוצדק רק אם רוצים גם את דלתת המקונג, שהיא יום שלם בפני עצמו.</p>
+      </div>
+      <div class="card" style="--c:var(--jade)">
+        <h4>"מסאז' כל יום" הוא לא קריטריון לבחירת מדינה</h4>
+        <p>הוא קיים בכל עיר בשתי המדינות, בזול ובלי הזמנה מראש. הוא נופל רק בשני לילות הלופ. כלומר מה שבאמת מוכרע כאן הוא הלופ, לא המסאז'.</p>
+      </div>
+      <div class="card" style="--c:var(--river)">
+        <h4>ארבעה עשר יום זה קצר לשתי מדינות</h4>
+        <p>עם שתי טיסות בינלאומיות ושתי טיסות פנים נשארים כאחד עשר ימים אפקטיביים. כל עצירה נוספת גוזלת חצי יום. לכן המסלול נעצר בארבע עצירות: לא כדי לקצץ, אלא כדי שיישאר זמן להיות במקומות.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-t="מה עכשיו" style="--accent:var(--gold)">
+  <div class="inner">
+    <div class="ghost">20</div>
+    <div class="tag">הצעד הבא</div>
+    <h2>ענו במספרים ואנחנו סוגרים תאריכים</h2>
+    <p class="lede">שש שורות, וזהו.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>#</th><th>ההתלבטות</th><th>האפשרויות</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>מה הטיול</td><td class="num">רכיבה · בסיסים · ערים</td></tr>
+          <tr><td class="num">2</td><td>הלופ</td><td class="num">מלא · מקוצר · בלי</td></tr>
+          <tr><td class="num">3</td><td>מתי</td><td class="num">נובמבר · ינואר</td></tr>
+          <tr><td class="num">4</td><td>תקציב</td><td class="num">למטה · למעלה · כל אחד לפי כיסו</td></tr>
+          <tr><td class="num">5</td><td>ארנון</td><td class="num">רישיון · רכב נלווה · בזוגות</td></tr>
+          <tr><td class="num">6</td><td>איך טסים</td><td class="num">ארקיע ישיר · אל על לבנגקוק · אתיהאד</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cards" style="margin-top:14px">
+      <div class="card" style="--c:var(--lacquer)">
+        <h4>שלוש משימות שלא מחכות לתשובות</h4>
+        <p><strong>ארנון</strong>: להתחיל רישיון בינלאומי, הדבר הארוך ביותר ברשימה.<br>
+        <strong>כולם</strong>: לוודא שהדרכון בתוקף לחצי שנה לפחות מיום היציאה, ושיש בו שני עמודים ריקים.<br>
+        <strong>אייל</strong>: לאמת מול ארקיע שהקו לסייגון נמכר בפועל לתאריכים שלנו, ושאפשר כרטיס אחד שנוחת בסייגון וממריא מהאנוי.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="swipe" id="swipe">החליקו או השתמשו בחיצים</div>
+
+<nav class="hud">
+  <button class="nav" id="prev">הקודם</button>
+  <div class="dots" id="dots"></div>
+  <div class="pos" id="pos">1 / 15</div>
+  <button class="nav" id="next">הבא</button>
+</nav>
+
+<script>
+(function(){
+  var stage  = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(stage.querySelectorAll('.slide'));
+  var prev   = document.getElementById('prev');
+  var next   = document.getElementById('next');
+  var pos    = document.getElementById('pos');
+  var rail   = document.getElementById('rail');
+  var dots   = document.getElementById('dots');
+  var swipe  = document.getElementById('swipe');
+  var i = 0, busy = false;
+
+  slides.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'שקופית ' + (n+1) + ': ' + (s.getAttribute('data-t')||''));
+    b.addEventListener('click', function(){ go(n); });
+    dots.appendChild(b);
+  });
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function paint(){
+    slides.forEach(function(s, n){ s.classList.toggle('on', n === i); });
+    dotEls.forEach(function(d, n){ d.setAttribute('aria-current', n === i ? 'true' : 'false'); });
+    pos.textContent = (i+1) + ' / ' + slides.length;
+    rail.style.width = ((i+1)/slides.length*100) + '%';
+    prev.disabled = (i === 0);
+    next.disabled = (i === slides.length - 1);
+    slides[i].scrollTop = 0;
+  }
+
+  function go(n){
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    if(n === i) return;
+    busy = true;
+    slides[n].style.setProperty('--dx', n > i ? '4%' : '-4%');
+    i = n;
+    paint();
+    clearTimeout(go._t);
+    go._t = setTimeout(function(){ busy = false; }, 380);
+  }
+
+  prev.addEventListener('click', function(){ go(i-1); });
+  next.addEventListener('click', function(){ go(i+1); });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowLeft' || e.key === 'PageDown'){ e.preventDefault(); go(i+1); }
+    else if(e.key === 'ArrowRight' || e.key === 'PageUp'){ e.preventDefault(); go(i-1); }
+    else if(e.key === 'ArrowDown'){ if(!scrollable()){ e.preventDefault(); go(i+1); } }
+    else if(e.key === 'ArrowUp'){ if(!scrollable()){ e.preventDefault(); go(i-1); } }
+    else if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    else if(e.key === 'End'){ e.preventDefault(); go(slides.length-1); }
+  });
+
+  function scrollable(){
+    var s = slides[i];
+    return s.scrollHeight - s.clientHeight > 4;
+  }
+
+  /* גלגלת: גוללת בתוך שקופית ארוכה, ומעבירה שקופית בקצה */
+  var lock = 0;
+  stage.addEventListener('wheel', function(e){
+    var now = Date.now();
+    if(now < lock || busy) return;
+    var s = slides[i];
+    var room = s.scrollHeight - s.clientHeight;
+    if(room > 4){
+      var atEnd   = s.scrollTop >= room - 2;
+      var atStart = s.scrollTop <= 2;
+      if(e.deltaY > 0 && !atEnd) return;
+      if(e.deltaY < 0 && !atStart) return;
+    }
+    if(Math.abs(e.deltaY) < 12) return;
+    e.preventDefault();
+    lock = now + 620;
+    go(e.deltaY > 0 ? i+1 : i-1);
+  }, {passive:false});
+
+  /* החלקה באצבע */
+  var sx = 0, sy = 0, tracking = false;
+  stage.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1){ tracking = false; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+  }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(busy) return;
+    if(Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+    go(dx > 0 ? i+1 : i-1);   /* RTL: החלקה ימינה מקדמת */
+  }, {passive:true});
+
+  paint();
+  setTimeout(function(){ swipe.classList.add('show'); }, 900);
+  setTimeout(function(){ swipe.classList.remove('show'); }, 5200);
+})();
+</script>
+</body>
+</html>
