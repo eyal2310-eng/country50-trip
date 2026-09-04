@@ -1,3 +1,4 @@
 *.py
 *.flag
 *.log
+__pycache__/

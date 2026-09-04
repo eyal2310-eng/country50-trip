@@ -12,6 +12,8 @@
 דורש: pip install python-docx
 """
 
+import re
+
 from docx import Document
 from docx.shared import Pt, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -21,6 +23,23 @@ from docx.oxml.ns import qn
 FONT = "David"
 SIZE = 12
 HEADING_SIZES = {1: 16, 2: 14, 3: 12}
+
+
+RLM = "\u200f"  # Right-to-Left Mark
+_TAIL = re.compile(r"([0-9)\]%A-Za-z])(\s*)([.,:;!?]+)\s*$")
+_HEB = re.compile(r"[\u0590-\u05ff]")
+
+
+def protect_bidi(text):
+    """מונע את קפיצת סימן הפיסוק כשמשפט עברי מסתיים בספרה, בסוגר או בתו לועזי.
+
+    מוסיף תו RLM (U+200F) לפני סימן הפיסוק הסוגר. זו התרופה הטכנית הנכונה -
+    היא פותרת את התצוגה בלי לאלץ ניסוח מלאכותי כמו "בסך 15,000 ש\"ח."
+    מופעל אוטומטית על כל טקסט שנכתב דרך para/bullet/table.
+    """
+    if not text or not _HEB.search(text) or RLM in text:
+        return text
+    return _TAIL.sub(lambda m: m.group(1) + m.group(2) + RLM + m.group(3), text)
 
 
 def _el(tag, **attrs):
@@ -69,18 +88,18 @@ def _fix_para(p, align, font, size, bold):
 
 def para(doc, text="", bold=False, align=WD_ALIGN_PARAGRAPH.JUSTIFY,
          font=FONT, size=SIZE):
-    return _fix_para(doc.add_paragraph(text), align, font, size, bold)
+    return _fix_para(doc.add_paragraph(protect_bidi(text)), align, font, size, bold)
 
 
 def heading(doc, text, level=1, font=FONT):
     size = HEADING_SIZES.get(level, SIZE)
-    p = doc.add_heading(text, level=level)
+    p = doc.add_heading(protect_bidi(text), level=level)
     return _fix_para(p, WD_ALIGN_PARAGRAPH.RIGHT, font, size, True)
 
 
 def bullet(doc, text, numbered=False, font=FONT, size=SIZE):
     style = "List Number" if numbered else "List Bullet"
-    p = doc.add_paragraph(text, style=style)
+    p = doc.add_paragraph(protect_bidi(text), style=style)
     return _fix_para(p, WD_ALIGN_PARAGRAPH.JUSTIFY, font, size, None)
 
 
@@ -92,7 +111,7 @@ def table(doc, rows, header=True, font=FONT, size=SIZE):
     for i, row in enumerate(rows):
         for j, val in enumerate(row):
             cell = t.cell(i, j)
-            cell.text = str(val)
+            cell.text = protect_bidi(str(val))
             for p in cell.paragraphs:
                 _fix_para(p, WD_ALIGN_PARAGRAPH.RIGHT, font, size,
                           True if (header and i == 0) else None)
